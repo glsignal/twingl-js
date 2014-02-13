@@ -1,27 +1,23 @@
 {
-  "name"        : "twingl-js",
-  "description" : "Client library for accessing Twingl resources",
-  "version"     : "0.0.0",
-  "homepage"    : "https://github.com/glsignal/twingl-js",
-  "author"      : "Greg Signal (Twingl Ltd.)",
-  "license"     : "MIT",
-
+  "name": "twingl-js",
+  "description": "Client library for accessing Twingl resources",
+  "version": "0.0.0",
+  "homepage": "https://github.com/glsignal/twingl-js",
+  "author": "Greg Signal (Twingl Ltd.)",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url" : "git://github.com/glsignal/twingl-js.git"
+    "url": "git://github.com/glsignal/twingl-js.git"
   },
-
   "bugs": {
     "url": "https://github.com/glsignal/twingl-js/issues"
   },
-
   "scripts": {
     "test": "grunt jasmine"
   },
-
   "devDependencies": {
-    "grunt"                 : "~0.4.2",
-    "grunt-contrib-jasmine" : "~0.6.1",
-    "grunt-contrib-watch"   : "~0.5.3"
+    "grunt": "~0.4.2",
+    "grunt-contrib-jasmine": "~0.6.1",
+    "grunt-contrib-watch": "~0.5.3"
   }
 }
