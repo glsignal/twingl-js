@@ -4,14 +4,27 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     jasmine: {
-      src: 'src/**/*.js',
+      src: ['src/**/*.js'],
       options: {
+        vendor: [
+          'vendor/jquery.js',
+          'vendor/jasmine-jquery.js',
+          'vendor/superagent.js',
+          'vendor/sinon.js'
+        ],
+        helpers: [
+          'spec/helpers/spec_helper.js'
+        ],
         specs: 'spec/**/*spec.js'
       }
     },
 
     watch: {
-      files: [ './**/*.js' ],
+      files: [
+        'Gruntfile.js',
+        './spec/**/*.js',
+        './src/**/*.js'
+      ],
       tasks: 'jasmine'
     }
   });

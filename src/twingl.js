@@ -1,12 +1,10 @@
 (function() {
-  'use strict';
+  "use strict";
 
-  window.Twingl = function(opts) {
-    this.message = opts.message;
-  };
+  window.Twingl = window.Twingl || {};
 
-  Twingl.prototype.getMessage = function() {
-    return "Hello " + this.message;
+  Twingl.defaults = {
+    baseUrl: "http://api.twin.gl"
   };
 
 })();

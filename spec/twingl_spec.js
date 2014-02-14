@@ -1,7 +1,9 @@
-describe("Twingl", function() {
-  it("Constructs a message", function() {
-    var client = new Twingl({message: "World"});
+describe("Twingl", function () {
+  "use strict";
 
-    expect(client.getMessage()).toBe("Hello World");
+  it("stores a set of default attributes", function () {
+    expect(Twingl.defaults).toEqual({
+      baseUrl: "http://api.twin.gl"
+    });
   });
 });
