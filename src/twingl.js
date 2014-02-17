@@ -4,7 +4,8 @@
   window.Twingl = window.Twingl || {};
 
   Twingl.defaults = {
-    baseUrl: "http://api.twin.gl"
+    baseUrl: "http://api.twin.gl",
+    version: "v1"
   };
 
 })();

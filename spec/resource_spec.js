@@ -47,7 +47,7 @@ describe("Twingl.Resource", function () {
       this.resource.read(param, function (res) { done(); });
 
       expect(requests.length).toBe(1);
-      expect(requests[0].url).toBe(this.client.baseUrl + this.opts.resourceEndpoint + param);
+      expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + param);
 
       requests[0].respond(200, {}, "{}");
     });
