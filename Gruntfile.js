@@ -25,7 +25,10 @@ module.exports = function(grunt) {
         './spec/**/*.js',
         './src/**/*.js'
       ],
-      tasks: 'jasmine'
+      tasks: 'jasmine',
+      options: {
+        livereload: true
+      }
     }
   });
 
