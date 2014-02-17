@@ -25,9 +25,10 @@ module.exports = function(grunt) {
         './spec/**/*.js',
         './src/**/*.js'
       ],
-      tasks: 'jasmine',
+      tasks: 'jasmine:src:build',
       options: {
-        livereload: true
+        livereload: true,
+        keepRunner: true
       }
     }
   });
