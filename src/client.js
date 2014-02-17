@@ -9,4 +9,11 @@
     this.version  = opts.version || Twingl.defaults.version;
   };
 
+  /**
+   * Delegated to Twingl.Users resource
+   */
+  Twingl.Client.prototype.me = function (cb) {
+    (new Twingl.Users(this)).me(cb);
+  };
+
 })();
