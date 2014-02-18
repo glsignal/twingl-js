@@ -64,4 +64,39 @@ describe("Twingl.Resource", function () {
     });
   });
 
+  describe("#index", function () {
+    it("constructs the correct URL", function (done) {
+      this.resource.index(function (res) { done(); });
+
+      expect(requests.length).toBe(1);
+      expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint);
+
+      requests[0].respond(200, {}, "{}");
+    });
+
+    it("accepts arbitrary options to pass as URL params", function () {
+      this.resource.index(function (res) {}, {option1:"foo", option2:"bar"});
+      var urlBase = this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint;
+
+      expect(requests.length).toBe(1);
+      expect(requests[0].url).toBe(urlBase + "?option1=foo&option2=bar");
+
+      requests[0].respond(200, {}, "{}");
+    });
+
+    it("parses the response", function (done) {
+      var expected = [
+        { some: "object" },
+        { another: "object" },
+      ];
+
+      this.resource.index(function (res) {
+        expect(res).toEqual(expected);
+        done();
+      });
+
+      requests[0].respond(200, { "Content-Type": "application/json" }, JSON.stringify(expected));
+    });
+  });
+
 });

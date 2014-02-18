@@ -31,13 +31,23 @@
   };
 
   /**
-   * Resource#read -> GET a singular resource (e.g. /users/1)
+   * GET Resource#index -> retrieve a collection of resources (e.g. /users)
    */
-  Twingl.Resource.prototype.read = function(param, cb) {
-    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + param;
+  Twingl.Resource.prototype.index = function(cb, params) {
+    var queryParams = Twingl.Util.toUrlParam(params);
+    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + queryParams;
     this.request(url, "get", function (err, res) {
       cb(JSON.parse(res.text));
     });
   };
 
+  /**
+   * GET Resource#read -> read a singular resource (e.g. /users/1)
+   */
+  Twingl.Resource.prototype.read = function(id, cb) {
+    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + id;
+    this.request(url, "get", function (err, res) {
+      cb(JSON.parse(res.text));
+    });
+  };
 })();
