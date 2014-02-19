@@ -11,3 +11,5 @@ lcov.info
 .grunt/
 
 node_modules/
+
+build/
