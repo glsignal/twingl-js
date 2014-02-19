@@ -45,7 +45,7 @@
    * GET Resource#read -> read a singular resource (e.g. /users/1)
    */
   Twingl.Resource.prototype.read = function(id, cb) {
-    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + id;
+    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + "/" + id;
     this.request(url, "get", function (err, res) {
       cb(JSON.parse(res.text));
     });

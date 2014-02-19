@@ -13,7 +13,8 @@ module.exports = function(grunt) {
           'vendor/sinon.js'
         ],
         helpers: [
-          'spec/helpers/spec_helper.js'
+          'spec/helpers/spec_helper.js',
+          'spec/shared_examples/**/*.js'
         ],
         specs: 'spec/**/*spec.js'
       }

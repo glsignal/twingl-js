@@ -1,14 +1,26 @@
 describe("Twingl.Users", function () {
   "use strict";
 
+  var requests;
+
+  beforeEach(function () {
+    this.describedResource = Twingl.Users;
+    this.client   = new Twingl.Client({token: "token"});
+    this.resource = new Twingl.Users(this.client);
+
+    this.mockRequests = {
+      read: {
+        endpoint: "/users/1",
+        response: getJSONFixture("users/read.1.json")
+      }
+    };
+  });
+
+  describe("shared examples", itBehavesLikeAResource);
+
   describe("#me", function () {
-
-    var requests;
-
     beforeEach(function () {
       this.profile  = getJSONFixture("users/me.json");
-      this.client   = new Twingl.Client({token: "token"});
-      this.resource = new Twingl.Users(this.client);
 
       // Fake XHR setup
       requests          = [];

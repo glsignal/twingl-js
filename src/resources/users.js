@@ -5,7 +5,7 @@
 
   Twingl.Users = function (client) {
     var opts = {
-      resourceEndpoint: "/users/"
+      resourceEndpoint: "/users"
     };
     var that = new Twingl.Resource(client, opts);
 

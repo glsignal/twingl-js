@@ -4,13 +4,13 @@ describe("Twingl.Resource", function () {
   var requests;
 
   beforeEach(function () {
-    this.client = {
+    this.client = new Twingl.Client({
       baseUrl: "http://example.com",
       token: "token"
-    };
+    });
 
     this.opts = {
-      resourceEndpoint: "/foo/"
+      resourceEndpoint: "/foo"
     };
 
     this.resource = new Twingl.Resource(this.client, this.opts);
@@ -47,7 +47,7 @@ describe("Twingl.Resource", function () {
       this.resource.read(param, function (res) { done(); });
 
       expect(requests.length).toBe(1);
-      expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + param);
+      expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + "/" + param);
 
       requests[0].respond(200, {}, "{}");
     });
