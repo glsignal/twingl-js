@@ -99,4 +99,38 @@ describe("Twingl.Resource", function () {
     });
   });
 
+  describe("#create", function () {
+    it("constructs the correct URL", function (done) {
+      this.resource.create({}, function (res) { done(); });
+
+      expect(requests.length).toBe(1);
+      expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint);
+
+      requests[0].respond(200, {}, "{}");
+    });
+
+    it("accepts a hash of attributes for the request body", function () {
+      var payload = {option1:"foo", option2:"bar"};
+      this.resource.create(payload, function (res) {});
+
+      expect(requests.length).toBe(1);
+      expect(requests[0].requestBody).toBe(JSON.stringify(payload));
+
+      requests[0].respond(200, {}, "{}");
+    });
+
+    it("parses the response", function (done) {
+      var expected = [
+        { some: "object" },
+        { another: "object" },
+      ];
+
+      this.resource.create({}, function (res) {
+        expect(res).toEqual(expected);
+        done();
+      });
+
+      requests[0].respond(200, { "Content-Type": "application/json" }, JSON.stringify(expected));
+    });
+  });
 });

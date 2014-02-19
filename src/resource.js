@@ -23,11 +23,17 @@
    * internal API consistent should a more appropriate library become
    * apparent.
    */
-  Twingl.Resource.prototype.request = function (url, method, cb) {
-    superagent(method, url)
+  Twingl.Resource.prototype.request = function (url, method, cb, attributes) {
+    var request = superagent(method, url)
       .set("Authorization", "Bearer " + this.client.token)
-      .set("Accept", "application/json")
-      .end(function(err, res) { cb(err, res); });
+      .set("Accept", "application/json");
+
+    if (attributes) {
+      request.set('Content-Type', 'application/json');
+      request.send(attributes);
+    }
+
+    request.end(function(err, res) { cb(err, res); });
   };
 
   /**
@@ -49,5 +55,15 @@
     this.request(url, "get", function (err, res) {
       cb(JSON.parse(res.text));
     });
+  };
+
+  /**
+   * POST Resource#create -> attempt to create a resource with `attributes`
+   */
+  Twingl.Resource.prototype.create = function(attributes, cb) {
+    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint;
+    this.request(url, "post", function (err, res) {
+      cb(JSON.parse(res.text));
+    }, attributes);
   };
 })();
