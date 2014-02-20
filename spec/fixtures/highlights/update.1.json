@@ -1,0 +1,19 @@
+{
+  "id":1,
+  "visibility":"private",
+  "user_id":1,
+  "origin":"web",
+  "context_url":"http://99designs.com/designer-blog/2014/01/15/7-unbreakable-laws-of-user-interface-design?ref=heydesigner",
+  "quote":"This is the amended quote",
+  "ranges":[
+    {
+      "id":1,
+      "start":"/div[3]/div[1]/div[1]/div[1]/div[2]/p[27]",
+      "startOffset":0,
+      "end":"/div[3]/div[1]/div[1]/div[1]/div[2]/p[27]",
+      "endOffset":118
+    }
+  ],
+  "created":"2014-01-20T07:04:44Z",
+  "updated":"2014-01-20T07:04:44Z"
+}

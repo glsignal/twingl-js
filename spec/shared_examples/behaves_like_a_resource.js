@@ -126,10 +126,7 @@
         it("makes a request", function (done) {
           if (Object.hasKey(this.mockRequests, "create")) {
             var expectedResponse = this.mockRequests["create"].response;
-            var payload = {
-              context_url: "http://example.com",
-              quote: "This is a quote"
-            };
+            var payload          = this.mockRequests["create"].payload;
 
             this.resource.create(payload, function (err, res) {
               expect(res).toEqual(expectedResponse);
@@ -140,6 +137,31 @@
 
             expect(requests.length).toBe(1);
             expect(requests[0].method).toBe("post");
+            expect(requests[0].requestHeaders["Content-Type"]).toBe("application/json;charset=utf-8");
+            expect(requests[0].url).toBe(expectedUrl);
+            expect(requests[0].requestBody).toBe(JSON.stringify(payload));
+
+            requests[0].respond(200, {}, JSON.stringify(expectedResponse));
+          } else { pending(); }
+        });
+      });
+
+      describe("#update", function () {
+        it("makes a request", function (done) {
+          if (Object.hasKey(this.mockRequests, "update")) {
+            var id               = this.mockRequests["update"].id;
+            var payload          = this.mockRequests["update"].payload;
+            var expectedResponse = this.mockRequests["update"].response;
+
+            this.resource.update(id, payload, function (err, res) {
+              expect(res).toEqual(expectedResponse);
+              done();
+            });
+
+            var expectedUrl = this.client.baseUrl + "/" + this.client.version + this.mockRequests["update"].endpoint;
+
+            expect(requests.length).toBe(1);
+            expect(requests[0].method).toBe("put");
             expect(requests[0].requestHeaders["Content-Type"]).toBe("application/json;charset=utf-8");
             expect(requests[0].url).toBe(expectedUrl);
             expect(requests[0].requestBody).toBe(JSON.stringify(payload));

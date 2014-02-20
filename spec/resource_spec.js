@@ -127,4 +127,26 @@ describe("Twingl.Resource", function () {
       requests[0].respond(200, {}, "{}");
     });
   });
+
+  describe("#update", function () {
+    it("makes a request to the correct URL", function (done) {
+      this.resource.update(1, {}, function (err, res) { done(); });
+
+      expect(requests.length).toBe(1);
+      expect(requests[0].method).toBe("put");
+      expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + "/" + 1);
+
+      requests[0].respond(200, {}, "{}");
+    });
+
+    it("accepts a hash of attributes for the request body", function () {
+      var payload = {option1:"foo", option2:"bar"};
+      this.resource.update(1, payload, function (err, res) {});
+
+      expect(requests.length).toBe(1);
+      expect(requests[0].requestBody).toBe(JSON.stringify(payload));
+
+      requests[0].respond(200, {}, "{}");
+    });
+  });
 });

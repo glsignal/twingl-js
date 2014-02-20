@@ -15,11 +15,21 @@ describe("Twingl.Highlights", function () {
       },
       create: {
         endpoint: "/highlights",
+        payload: {
+          context_url: "http://example.com",
+          quote: "This is a new quote"
+        },
         response: getJSONFixture("highlights/create.json")
       },
       read: {
         endpoint: "/highlights/1",
         response: getJSONFixture("highlights/read.1.json")
+      },
+      update: {
+        id: 1,
+        payload: { quote: "This is the amended quote" },
+        endpoint: "/highlights/1",
+        response: getJSONFixture("highlights/update.1.json")
       }
     };
   });

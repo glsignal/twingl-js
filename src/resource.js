@@ -73,4 +73,12 @@
     var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint;
     this.request(url, "post", cb, attributes);
   };
+
+  /**
+   * PUT Resource#update -> update a resource with new `attributes`
+   */
+  Twingl.Resource.prototype.update = function(id, attributes, cb) {
+    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + "/" + id;
+    this.request(url, "put", cb, attributes);
+  };
 })();
