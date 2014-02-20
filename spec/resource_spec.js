@@ -72,10 +72,11 @@ describe("Twingl.Resource", function () {
   });
 
   describe("#index", function () {
-    it("constructs the correct URL", function (done) {
+    it("makes a request to the correct URL", function (done) {
       this.resource.index(function (err, res) { done(); });
 
       expect(requests.length).toBe(1);
+      expect(requests[0].method).toBe("get");
       expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint);
 
       requests[0].respond(200, {}, "{}");
@@ -93,11 +94,12 @@ describe("Twingl.Resource", function () {
   });
 
   describe("#read", function () {
-    it("constructs the correct URL", function (done) {
+    it("makes a request to the correct URL", function (done) {
       var param = 1;
       this.resource.read(param, function (err, res) { done(); });
 
       expect(requests.length).toBe(1);
+      expect(requests[0].method).toBe("get");
       expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + "/" + param);
 
       requests[0].respond(200, {}, "{}");
@@ -105,10 +107,11 @@ describe("Twingl.Resource", function () {
   });
 
   describe("#create", function () {
-    it("constructs the correct URL", function (done) {
+    it("makes a request to the correct URL", function (done) {
       this.resource.create({}, function (err, res) { done(); });
 
       expect(requests.length).toBe(1);
+      expect(requests[0].method).toBe("post");
       expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint);
 
       requests[0].respond(200, {}, "{}");
