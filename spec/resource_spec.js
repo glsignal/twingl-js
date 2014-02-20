@@ -43,7 +43,7 @@ describe("Twingl.Resource", function () {
 
   describe("#index", function () {
     it("constructs the correct URL", function (done) {
-      this.resource.index(function (res) { done(); });
+      this.resource.index(function (err, res) { done(); });
 
       expect(requests.length).toBe(1);
       expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint);
@@ -52,7 +52,7 @@ describe("Twingl.Resource", function () {
     });
 
     it("accepts arbitrary options to pass as URL params", function () {
-      this.resource.index(function (res) {}, {option1:"foo", option2:"bar"});
+      this.resource.index(function (err, res) {}, {option1:"foo", option2:"bar"});
       var urlBase = this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint;
 
       expect(requests.length).toBe(1);
@@ -67,7 +67,7 @@ describe("Twingl.Resource", function () {
         { another: "object" },
       ];
 
-      this.resource.index(function (res) {
+      this.resource.index(function (err, res) {
         expect(res).toEqual(expected);
         done();
       });
@@ -79,7 +79,7 @@ describe("Twingl.Resource", function () {
   describe("#read", function () {
     it("constructs the correct URL", function (done) {
       var param = 1;
-      this.resource.read(param, function (res) { done(); });
+      this.resource.read(param, function (err, res) { done(); });
 
       expect(requests.length).toBe(1);
       expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + "/" + param);
@@ -90,7 +90,7 @@ describe("Twingl.Resource", function () {
     it("parses the response", function (done) {
       var expected = { some: "object" };
 
-      this.resource.read(1, function (res) {
+      this.resource.read(1, function (err, res) {
         expect(res).toEqual(expected);
         done();
       });
@@ -101,7 +101,7 @@ describe("Twingl.Resource", function () {
 
   describe("#create", function () {
     it("constructs the correct URL", function (done) {
-      this.resource.create({}, function (res) { done(); });
+      this.resource.create({}, function (err, res) { done(); });
 
       expect(requests.length).toBe(1);
       expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint);
@@ -111,7 +111,7 @@ describe("Twingl.Resource", function () {
 
     it("accepts a hash of attributes for the request body", function () {
       var payload = {option1:"foo", option2:"bar"};
-      this.resource.create(payload, function (res) {});
+      this.resource.create(payload, function (err, res) {});
 
       expect(requests.length).toBe(1);
       expect(requests[0].requestBody).toBe(JSON.stringify(payload));
@@ -125,7 +125,7 @@ describe("Twingl.Resource", function () {
         { another: "object" },
       ];
 
-      this.resource.create({}, function (res) {
+      this.resource.create({}, function (err, res) {
         expect(res).toEqual(expected);
         done();
       });

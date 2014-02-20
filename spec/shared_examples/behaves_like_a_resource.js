@@ -65,7 +65,7 @@
       describe("#index", function () {
         it("makes a request", function (done) {
           if (Object.hasKey(this.mockRequests, "index")) {
-            this.resource.index(function (res) { done(); });
+            this.resource.index(function (err, res) { done(); });
 
             var expectedUrl = this.client.baseUrl + "/" + this.client.version + this.mockRequests["index"].endpoint;
 
@@ -81,7 +81,7 @@
           if (Object.hasKey(this.mockRequests, "index")) {
             var expectedResponse = this.mockRequests["index"].response;
 
-            this.resource.read(1, function (res) {
+            this.resource.read(1, function (err, res) {
               expect(res).toEqual(expectedResponse);
               done();
             });
@@ -95,7 +95,7 @@
       describe("#read", function () {
         it("makes a request", function (done) {
           if (Object.hasKey(this.mockRequests, "read")) {
-            this.resource.read(1, function (res) { done(); });
+            this.resource.read(1, function (err, res) { done(); });
 
             var expectedUrl = this.client.baseUrl + "/" + this.client.version + this.mockRequests["read"].endpoint;
 
@@ -111,7 +111,7 @@
           if (Object.hasKey(this.mockRequests, "read")) {
             var expectedResponse = this.mockRequests["read"].response;
 
-            this.resource.read(1, function (res) {
+            this.resource.read(1, function (err, res) {
               expect(res).toEqual(expectedResponse);
               done();
             });
@@ -131,7 +131,7 @@
               quote: "This is a quote"
             };
 
-            this.resource.create(payload, function (res) {
+            this.resource.create(payload, function (err, res) {
               expect(res).toEqual(expectedResponse);
               done();
             });

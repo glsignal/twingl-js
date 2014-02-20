@@ -35,7 +35,7 @@ describe("Twingl.Users", function () {
     it("provides access the token owner's profile", function (done) {
       var that = this;
 
-      this.resource.me(function (res) {
+      this.resource.me(function (err, res) {
         expect(res).toEqual(that.profile);
         done();
       });

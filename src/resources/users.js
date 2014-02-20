@@ -13,7 +13,7 @@
      * GET /users/me
      */
     that.me = function (cb) {
-      this.read("me", function(res) { cb(res); });
+      this.read("me", cb);
     };
 
     return that;

@@ -33,7 +33,13 @@
       request.send(attributes);
     }
 
-    request.end(function(err, res) { cb(err, res); });
+    request.end(function(err, res) {
+      if (err) {
+        cb(err, res);
+      } else {
+        cb(err, JSON.parse(res.text));
+      }
+    });
   };
 
   /**
@@ -42,9 +48,7 @@
   Twingl.Resource.prototype.index = function(cb, params) {
     var queryParams = Twingl.Util.toUrlParam(params);
     var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + queryParams;
-    this.request(url, "get", function (err, res) {
-      cb(JSON.parse(res.text));
-    });
+    this.request(url, "get", cb);
   };
 
   /**
@@ -52,9 +56,7 @@
    */
   Twingl.Resource.prototype.read = function(id, cb) {
     var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + "/" + id;
-    this.request(url, "get", function (err, res) {
-      cb(JSON.parse(res.text));
-    });
+    this.request(url, "get", cb);
   };
 
   /**
@@ -62,8 +64,6 @@
    */
   Twingl.Resource.prototype.create = function(attributes, cb) {
     var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint;
-    this.request(url, "post", function (err, res) {
-      cb(JSON.parse(res.text));
-    }, attributes);
+    this.request(url, "post", cb, attributes);
   };
 })();
