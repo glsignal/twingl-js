@@ -27,9 +27,9 @@ communicate with the Twingl API.
 
 It can be created as follows:
 
-    ```javascript
-    var client = new Twingl.Client({token: "your api token"});
-    ```
+```javascript
+var client = new Twingl.Client({token: "your api token"});
+```
 
 The options available for configuring the client (say, for instance, if you
 were testing your application on the Twingl sandbox) are given to the
@@ -66,10 +66,10 @@ delete  | Delete the resource permanently.
 Accessing Twingl highlights through this library is simple. Consider the
 example:
 
-    ```javascript
-    // We already have our client that was instantiated earlier
-    var highlights = new Twingl.Highlights(client);
-    ```
+```javascript
+// We already have our client that was instantiated earlier
+var highlights = new Twingl.Highlights(client);
+```
 
 What we now have is an instance of the Highlights resource which can be used to
 access and manipulate resources on the Twingl platform.
@@ -79,11 +79,11 @@ access and manipulate resources on the Twingl platform.
 For example, if we want to get a list of all of our highlights (to be paginated
 in future), we can make the following call:
 
-    ```javascript
-    highlights.index(function(error, response) {
-      console.table(response);
-    });
-    ```
+```javascript
+highlights.index(function(error, response) {
+  console.table(response);
+});
+```
 
 In the `response` parameter, we have a parsed array of our highlights, ready to
 be used in our application.
@@ -92,11 +92,11 @@ The `index` function optionally accepts an object containing parameters to be
 sent in the request to the API. Say for instance we wished to restrict the
 highlights returned to just those made on `http://example.com`:
 
-    ```javascript
-    highlights.index(function(error, response) {
-      console.table(response);
-    }, {context: "http://example.com"} );
-    ```
+```javascript
+highlights.index(function(error, response) {
+  console.table(response);
+}, {context: "http://example.com"} );
+```
 
 By including the second parameter in the function call, we append these
 options to the API request. Some options worth mentioning here (but will
@@ -114,15 +114,15 @@ order  | (string) Specify the sort order. Either `asc` or `desc`
 If we want to read just a single resource from the platform, and already have
 its ID, this is a simple task:
 
-    ```javascript
-    highlights.read(1, function(error, response) {
-      if (error) {
-        console.log("Welp, there was an error.", error, response);
-      } else {
-        console.log(response);
-      }
-    });
-    ```
+```javascript
+highlights.read(1, function(error, response) {
+  if (error) {
+    console.log("Welp, there was an error.", error, response);
+  } else {
+    console.log(response);
+  }
+});
+```
 
 This will attempt to retrieve the highlight with id `1`. If found, it will be
 logged into the console. If not, the log message will be different and both
@@ -138,15 +138,15 @@ In order to actually get something onto the platform, we need to be able to
 create resources. We'll start with an example again, and then document what's
 happening.
 
-    ```javascript
-    highlights.create({
-      context: "http://example.com",
-      quote: "A really compelling text fragment from the inspiring article"
-    },
-    function(error, response) {
-      console.log(response);
-    });
-    ```
+```javascript
+highlights.create({
+  context: "http://example.com",
+  quote: "A really compelling text fragment from the inspiring article"
+},
+function(error, response) {
+  console.log(response);
+});
+```
 
 What will happen here is a Highlight containing the quote (above) will be
 created and associated with `http://example.com`. The result of this request
@@ -154,30 +154,30 @@ will be logged to the console.
 
 If successful, `response` will contain the object that was just created, e.g.
 
-    ```javascript
-    {
-      id: 8,
-      visibility: "private",
-      user_id: 1,
-      origin: "web",
-      context_url: "http://example.com",
-      quote: "A really compelling text fragment from the inspiring article",
-      ranges: [],
-      created: "2014-02-20T04:00:35Z",
-      updated: "2014-02-20T04:00:35Z"
-    }
-    ```
+```javascript
+{
+  id: 8,
+  visibility: "private",
+  user_id: 1,
+  origin: "web",
+  context_url: "http://example.com",
+  quote: "A really compelling text fragment from the inspiring article",
+  ranges: [],
+  created: "2014-02-20T04:00:35Z",
+  updated: "2014-02-20T04:00:35Z"
+}
+```
 
 If the creation failed for some validation reason, the `error` parameter will
 contain an object such as:
 
-    ```javascript
-    {
-      errors: [
-        //validation errors
-      ]
-    }
-    ```
+```javascript
+{
+  errors: [
+    //validation errors
+  ]
+}
+```
 
 These error cases will be properly documented in the Twingl API documentation.
 
