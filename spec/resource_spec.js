@@ -63,7 +63,6 @@ describe("Twingl.Resource", function () {
       };
 
       this.resource.request("http://example.com/", "get", function (err, res) {
-        console.log(err,res);
         expect(err).toEqual(errorResponse);
         done();
       });
