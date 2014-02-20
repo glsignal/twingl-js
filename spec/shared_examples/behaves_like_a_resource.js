@@ -170,6 +170,27 @@
           } else { pending(); }
         });
       });
+
+      describe("#destroy", function () {
+        it("makes a request", function (done) {
+          if (Object.hasKey(this.mockRequests, "destroy")) {
+            var id = this.mockRequests["destroy"].id;
+
+            this.resource.destroy(id, function (err, res) {
+              expect(res.status).toEqual(204);
+              done();
+            });
+
+            var expectedUrl = this.client.baseUrl + "/" + this.client.version + this.mockRequests["destroy"].endpoint;
+
+            expect(requests.length).toBe(1);
+            expect(requests[0].method).toBe("delete");
+            expect(requests[0].url).toBe(expectedUrl);
+
+            requests[0].respond(204);
+          } else { pending(); }
+        });
+      });
     });
   };
 

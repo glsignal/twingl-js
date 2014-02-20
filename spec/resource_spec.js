@@ -149,4 +149,16 @@ describe("Twingl.Resource", function () {
       requests[0].respond(200, {}, "{}");
     });
   });
+
+  describe("#delete", function () {
+    it("makes a request to the correct URL", function (done) {
+      this.resource.destroy(1, function (err, res) { done(); });
+
+      expect(requests.length).toBe(1);
+      expect(requests[0].method).toBe("delete");
+      expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + "/" + 1);
+
+      requests[0].respond(204);
+    });
+  });
 });

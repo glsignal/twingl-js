@@ -42,6 +42,8 @@
       } else {
         if (res.statusType === 4 || res.statusType === 5) {
           cb(JSON.parse(res.text), res);
+        } else if (res.status === 204) {
+          cb(err, res);
         } else {
           cb(err, JSON.parse(res.text));
         }
@@ -80,5 +82,13 @@
   Twingl.Resource.prototype.update = function(id, attributes, cb) {
     var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + "/" + id;
     this.request(url, "put", cb, attributes);
+  };
+
+  /**
+   * DELETE Resource#destroy -> destroy a resource
+   */
+  Twingl.Resource.prototype.destroy = function(id, cb) {
+    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + "/" + id;
+    this.request(url, "delete", cb);
   };
 })();

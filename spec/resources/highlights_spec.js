@@ -30,6 +30,10 @@ describe("Twingl.Highlights", function () {
         payload: { quote: "This is the amended quote" },
         endpoint: "/highlights/1",
         response: getJSONFixture("highlights/update.1.json")
+      },
+      destroy: {
+        id: 1,
+        endpoint: "/highlights/1"
       }
     };
   });
