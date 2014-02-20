@@ -59,7 +59,7 @@ index   | Get a list of resources
 create  | Create a new resource
 read    | Read a specific resource
 update  | Update an attribute on the resource
-delete  | Delete the resource permanently.
+destroy | Destroy the resource permanently.
 
 #### Highlights
 
@@ -161,7 +161,7 @@ If successful, `response` will contain the object that was just created, e.g.
   user_id: 1,
   origin: "web",
   context_url: "http://example.com",
-  quote: "A really compelling text fragment from the inspiring article",
+  quote: "A relly compelling text fragment from the inspiring article",
   ranges: [],
   created: "2014-02-20T04:00:35Z",
   updated: "2014-02-20T04:00:35Z"
@@ -193,11 +193,47 @@ visibility  | (string: 'public', 'private', 'secret') How visible this highlight
 
 ##### Update
 
-> Pending
+Updating a resource follows a very similar method to creating one, except that
+an ID needs to be passed to be able to make the request.
 
-##### Delete
+In the example below, we're updating the highlight we created in the previous
+example and correcting a spelling mistake in the quote (because we're a bit
+sensitive to those, apparently)
 
-> Pending
+```javascript
+highlights.update(8, {
+  quote: "A really compelling text fragment from the inspiring article"
+},
+function(error, response) {
+  console.log(response);
+});
+```
+
+As before, if the request is successful we won't have an `error` parameter, and
+the `response` parameter will contain the new representation of the object;
+that is, the updated object.
+
+The attributes and validation behaviour is the same as in `create`
+
+##### Destroy
+
+To delete a resource (or rather `destroy`, as 'delete' is a reserved word), we
+need only specify the ID of the item we want to obliterate.
+
+We've decided we don't need that highlight after all, so let's get rid of it:
+
+```javascript
+highlights.destroy(8, function(error, response) {
+  console.log(response);
+});
+```
+
+The response will be a little different in this method. As there is no response
+body returned by the server for this request, we will return the full, verbose
+response object. What you do with this is up to you, but you can safely ignore
+it as it's a HTTP `204 No Content`
+
+If the destroy fails for some reason, the behaviour is as in other methods.
 
 # Contributing
 
