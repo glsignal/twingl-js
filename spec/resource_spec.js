@@ -39,6 +39,37 @@ describe("Twingl.Resource", function () {
 
       requests[0].respond(200, { "Content-Type": "application/json" }, "{}");
     });
+
+    it("parses the response", function (done) {
+      var expected = [
+        { some: "object" },
+        { another: "object" },
+      ];
+
+      this.resource.request("http://example.com/", "get", function (err, res) {
+        expect(res).toEqual(expected);
+        done();
+      }, expected);
+
+      requests[0].respond(200, { "Content-Type": "application/json" }, JSON.stringify(expected));
+    });
+
+    it("returns the error response", function (done) {
+      var errorResponse = {
+        error: {
+          code: 404,
+          message: "Record not found"
+        }
+      };
+
+      this.resource.request("http://example.com/", "get", function (err, res) {
+        console.log(err,res);
+        expect(err).toEqual(errorResponse);
+        done();
+      });
+
+      requests[0].respond(404, { "Content-Type": "application/json" }, JSON.stringify(errorResponse));
+    });
   });
 
   describe("#index", function () {
@@ -60,20 +91,6 @@ describe("Twingl.Resource", function () {
 
       requests[0].respond(200, {}, "{}");
     });
-
-    it("parses the response", function (done) {
-      var expected = [
-        { some: "object" },
-        { another: "object" },
-      ];
-
-      this.resource.index(function (err, res) {
-        expect(res).toEqual(expected);
-        done();
-      });
-
-      requests[0].respond(200, { "Content-Type": "application/json" }, JSON.stringify(expected));
-    });
   });
 
   describe("#read", function () {
@@ -85,17 +102,6 @@ describe("Twingl.Resource", function () {
       expect(requests[0].url).toBe(this.client.baseUrl + "/" + this.client.version + this.opts.resourceEndpoint + "/" + param);
 
       requests[0].respond(200, {}, "{}");
-    });
-
-    it("parses the response", function (done) {
-      var expected = { some: "object" };
-
-      this.resource.read(1, function (err, res) {
-        expect(res).toEqual(expected);
-        done();
-      });
-
-      requests[0].respond(200, { "Content-Type": "application/json" }, JSON.stringify(expected));
     });
   });
 
@@ -117,20 +123,6 @@ describe("Twingl.Resource", function () {
       expect(requests[0].requestBody).toBe(JSON.stringify(payload));
 
       requests[0].respond(200, {}, "{}");
-    });
-
-    it("parses the response", function (done) {
-      var expected = [
-        { some: "object" },
-        { another: "object" },
-      ];
-
-      this.resource.create({}, function (err, res) {
-        expect(res).toEqual(expected);
-        done();
-      });
-
-      requests[0].respond(200, { "Content-Type": "application/json" }, JSON.stringify(expected));
     });
   });
 });

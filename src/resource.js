@@ -35,9 +35,16 @@
 
     request.end(function(err, res) {
       if (err) {
+        /**
+         * If there's an error present, bubble it up to the consumer
+         */ 
         cb(err, res);
       } else {
-        cb(err, JSON.parse(res.text));
+        if (res.statusType === 4 || res.statusType === 5) {
+          cb(JSON.parse(res.text), res);
+        } else {
+          cb(err, JSON.parse(res.text));
+        }
       }
     });
   };
