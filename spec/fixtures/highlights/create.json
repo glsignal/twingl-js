@@ -1,0 +1,11 @@
+{
+  "id":2,
+  "visibility":"private",
+  "user_id":1,
+  "origin":"web",
+  "context_url":"http://example.com",
+  "quote":"This is a quote",
+  "ranges":[ ],
+  "created":"2014-01-20T07:04:44Z",
+  "updated":"2014-01-20T07:04:44Z"
+}
