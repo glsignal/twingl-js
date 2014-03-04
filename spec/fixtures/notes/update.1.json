@@ -1,0 +1,11 @@
+{
+  "id":1,
+  "visibility":"private",
+  "user_id":1,
+  "origin":"web",
+  "commented_type":"highlights",
+  "commented_id":1,
+  "body":"An updated comment",
+  "created":"2014-02-26T19:40:09Z",
+  "updated":"2014-02-26T19:40:09Z"
+}
