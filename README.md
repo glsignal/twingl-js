@@ -61,6 +61,10 @@ read    | Read a specific resource
 update  | Update an attribute on the resource
 destroy | Destroy the resource permanently.
 
+Resources can be nested under a parent resource, such as a highlight being made
+on a context. This can also be specified when creating an instance of the
+resource, as mentioned below.
+
 #### Highlights
 
 Accessing Twingl highlights through this library is simple. Consider the
@@ -108,6 +112,19 @@ limit  | (int) Limit the number of objects returned by the server.
 offset | (int) Offset the returned list by `offset` items. Used in conjunction with `limit` for pagination
 sort   | (string) Sort the list by `attribute`, e.g. `created`
 order  | (string) Specify the sort order. Either `asc` or `desc`
+
+If our highlight was nested under a context, say with `id = 3`, we could
+specify this when we instantiate the resource object:
+
+```javascript
+// We already have our client that was instantiated earlier
+var highlights = new Twingl.Highlights(client, { type: "contexts", id: 3 });
+```
+
+This would then make *index* and *create* requests to the URL 
+`http://api.twin.gl/v1/contexts/3/highlights`, allowing us to either scope the
+index to that particular context, or create a new highlight to be associated
+with that context.
 
 ##### Read
 
