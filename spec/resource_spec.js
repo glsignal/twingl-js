@@ -27,6 +27,7 @@ describe("Twingl.Resource", function () {
 
   it("stores configuration options", function () {
     expect(this.resource.resourceEndpoint).toBe(this.opts.resourceEndpoint);
+    expect(this.resource.parentResource).toBe(this.opts.parentResource);
   });
 
   describe("#request", function () {
@@ -72,6 +73,37 @@ describe("Twingl.Resource", function () {
   });
 
   describe("#index", function () {
+    describe("with a parent resource", function () {
+      it("includes the parent resource in the URL", function (done) {
+
+        var opts = {
+          resourceEndpoint: "/foo",
+          parentResource: { type: "highlights", id: 1 }
+        };
+
+        var resource = new Twingl.Resource(this.client, opts);
+
+        resource.index(function (err, res) { done(); });
+
+        var parentResourceFragment =
+            "/"
+          + opts.parentResource.type
+          + "/"
+          + opts.parentResource.id;
+
+        var expectedUrl =
+            this.client.baseUrl
+          + "/"
+          + this.client.version
+          + parentResourceFragment
+          + opts.resourceEndpoint;
+
+        expect(requests[0].url).toBe(expectedUrl);
+
+        requests[0].respond(200, {}, "{}");
+      });
+    });
+
     it("makes a request to the correct URL", function (done) {
       this.resource.index(function (err, res) { done(); });
 
@@ -107,6 +139,37 @@ describe("Twingl.Resource", function () {
   });
 
   describe("#create", function () {
+    describe("with a parent resource", function () {
+      it("includes the parent resource in the URL", function (done) {
+
+        var opts = {
+          resourceEndpoint: "/foo",
+          parentResource: { type: "highlights", id: 1 }
+        };
+
+        var resource = new Twingl.Resource(this.client, opts);
+
+        resource.create({}, function (err, res) { done(); });
+
+        var parentResourceFragment =
+            "/"
+          + opts.parentResource.type
+          + "/"
+          + opts.parentResource.id;
+
+        var expectedUrl =
+            this.client.baseUrl
+          + "/"
+          + this.client.version
+          + parentResourceFragment
+          + opts.resourceEndpoint;
+
+        expect(requests[0].url).toBe(expectedUrl);
+
+        requests[0].respond(200, {}, "{}");
+      });
+    });
+
     it("makes a request to the correct URL", function (done) {
       this.resource.create({}, function (err, res) { done(); });
 

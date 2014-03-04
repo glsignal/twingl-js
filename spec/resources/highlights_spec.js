@@ -7,11 +7,18 @@ describe("Twingl.Highlights", function () {
     this.describedResource = Twingl.Highlights;
     this.client   = new Twingl.Client({token: "token"});
     this.resource = new Twingl.Highlights(this.client);
+    this.resourceWithParent = new Twingl.Highlights(this.client,
+      { type: "contexts", id: 1 });
 
     this.mockRequests = {
       index: {
         endpoint: "/highlights",
-        response: getJSONFixture("highlights/index.json")
+        response: getJSONFixture("highlights/index.json"),
+        parentResource: {
+          id: 1,
+          type: "contexts",
+          endpoint: "/contexts/1/highlights"
+        }
       },
       create: {
         endpoint: "/highlights",
@@ -19,7 +26,12 @@ describe("Twingl.Highlights", function () {
           context_url: "http://example.com",
           quote: "This is a new quote"
         },
-        response: getJSONFixture("highlights/create.json")
+        response: getJSONFixture("highlights/create.json"),
+        parentResource: {
+          id: 1,
+          type: "contexts",
+          endpoint: "/contexts/1/highlights"
+        }
       },
       read: {
         endpoint: "/highlights/1",
@@ -38,5 +50,6 @@ describe("Twingl.Highlights", function () {
     };
   });
 
-  describe("shared examples", itBehavesLikeAResource);
+  describe("resource examples", itBehavesLikeAResource);
+  describe("parent resource examples", itBehavesLikeAResourceWithAParentResource);
 });

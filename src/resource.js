@@ -13,6 +13,8 @@
     this.client = client;
 
     this.resourceEndpoint = opts.resourceEndpoint;
+
+    this.parentResource = opts.parentResource;
   };
 
   /**
@@ -56,7 +58,13 @@
    */
   Twingl.Resource.prototype.index = function(cb, params) {
     var queryParams = Twingl.Util.toUrlParam(params);
-    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint + queryParams;
+    var urlBase = this.client.baseUrl + "/" + this.client.version;
+
+    if (this.parentResource && this.parentResource.id && this.parentResource.type) {
+      urlBase += "/" + this.parentResource.type + "/" + this.parentResource.id;
+    }
+
+    var url = urlBase + this.resourceEndpoint + queryParams;
     this.request(url, "get", cb);
   };
 
@@ -72,7 +80,13 @@
    * POST Resource#create -> attempt to create a resource with `attributes`
    */
   Twingl.Resource.prototype.create = function(attributes, cb) {
-    var url = this.client.baseUrl + "/" + this.client.version + this.resourceEndpoint;
+    var urlBase = this.client.baseUrl + "/" + this.client.version;
+
+    if (this.parentResource && this.parentResource.id && this.parentResource.type) {
+      urlBase += "/" + this.parentResource.type + "/" + this.parentResource.id;
+    }
+
+    var url = urlBase + this.resourceEndpoint;
     this.request(url, "post", cb, attributes);
   };
 
