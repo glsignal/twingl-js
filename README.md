@@ -92,6 +92,8 @@ highlights.index(function(error, response) {
 In the `response` parameter, we have a parsed array of our highlights, ready to
 be used in our application.
 
+**Sorting, Filtering and Pagination**
+
 The `index` function optionally accepts an object containing parameters to be
 sent in the request to the API. Say for instance we wished to restrict the
 highlights returned to just those made on `http://example.com`:
@@ -112,6 +114,18 @@ limit  | (int) Limit the number of objects returned by the server.
 offset | (int) Offset the returned list by `offset` items. Used in conjunction with `limit` for pagination
 sort   | (string) Sort the list by `attribute`, e.g. `created`
 order  | (string) Specify the sort order. Either `asc` or `desc`
+
+Sort attribute | Description
+---------------|------------
+`created`      | Order the list by when the resource was created
+`updated`      | Order the list by when the resource was created
+
+Filtering attribute | Description
+--------------------|------------
+`created_before`    | Return only items created before (exclusive) a given unix timestamp (seconds)
+`created_after`     | Return only items created after (inclusive) a given unix timestamp (seconds)
+`updated_before`    | Return only items updated before (exclusive) a given unix timestamp (seconds)
+`updated_after`     | Return only items updated after (inclusive) a given unix timestamp (seconds)
 
 If our highlight was nested under a context, say with `id = 3`, we could
 specify this when we instantiate the resource object:
@@ -203,10 +217,25 @@ are as follows:
 
 Attribute   | Description
 ------------|------------
-context     | (string) The URL of the page the highlight is associated with
+context     | (string) The URL of the page the highlight is associated with (see note below)
 quote       | (string) The quoted piece of text in the page
 ranges      | (string) Ranges that denote the start/end point of the highlighted text in the DOM
-visibility  | (string: 'public', 'private', 'secret') How visible this highlight is
+visibility  | (string) The visibility of the note (see below)
+
+**Visibility**
+
+Resources may be made visible depending on the user's preferences.
+There are several levels of visibility, described below.
+
+Level     | Description
+----------|------------
+public    | Accessible by anyone with the resource ID and returned in search results
+private   | Accessible by anyone with the resource ID, not returned in search results
+secret    | Only accessible to the resource owner
+
+> A note on setting the context of a highlight; if the context is already known
+> to exist in Twingl, it is preferable to use the creation URL of the form
+> `/contexts/:id/highlights` rather than the URL param.
 
 ##### Update
 
@@ -251,6 +280,143 @@ response object. What you do with this is up to you, but you can safely ignore
 it as it's a HTTP `204 No Content`
 
 If the destroy fails for some reason, the behaviour is as in other methods.
+
+#### Notes
+
+Accessing notes through the library is very similar to how highlights are
+structured, so the documentation for highlights should suffice (in terms of
+program structure); attributes specific to Notes are documented below.
+
+```javascript
+// We already have our client that was instantiated earlier
+var notes = new Twingl.Notes(client);
+```
+
+> **Notice:** Notes are currently in a transitional phase as they are renamed
+> from comments. While we will endeavour to keep the API consistent during this
+> transitional period, we can't guarantee that any changes won't occur (most
+> likely to affect the actual response from the API, less the JS
+> implementation). We're really sorry if this affects your app (it certainly
+> affects ours), but this one is tough to work around.
+
+##### Index
+
+**Parent Resources**
+
+You may specify a parent resource with the `index` call on this resource.
+
+```javascript
+var notes = new Twingl.Notes(client, { type: "contexts", id: 1 });
+```
+
+**Sorting and Pagination**
+
+The `index` may be sorted and ordered according to the following attributes
+
+Option | Description
+-------|------------
+limit  | (int) Limit the number of objects returned by the server.
+offset | (int) Offset the returned list by `offset` items. Used in conjunction with `limit` for pagination
+sort   | (string) Sort the list by `attribute`, e.g. `created`
+order  | (string) Specify the sort order. Either `asc` or `desc`
+
+Sort attribute | Description
+---------------|------------
+created        | Order the list by when the resource was created
+updated        | Order the list by when the resource was created
+
+**Filtering**
+
+You can restrict the results returned to a certain subset, based on the
+following attributes.
+
+Filtering attribute | Description
+--------------------|------------
+`created_before`    | Return only items created before (exclusive) a given unix timestamp (seconds)
+`created_after`     | Return only items created after (inclusive) a given unix timestamp (seconds)
+`updated_before`    | Return only items updated before (exclusive) a given unix timestamp (seconds)
+`updated_after`     | Return only items updated after (inclusive) a given unix timestamp (seconds)
+
+```javascript
+var notes = new Twingl.Notes(client);
+// Optionally specifying a parent resource
+// var notes = new Twingl.Notes(client, { type: "contexts", id: 1 });
+
+notes.index( function(error, response) { console.table(response); },
+  {
+    sort: "created",
+    order: "asc",
+    limit: 10,
+    created_after: "1393984645"
+  });
+
+// This will return the 10 notes created after and including the timestamp
+// specified, in ascending order of creation.
+```
+
+##### Read
+
+To read a resource, you only need its `id`
+
+```javascript
+notes.read(1, function(error, response) { console.log(response); });
+```
+
+##### Create
+
+```javascript
+var notes = new Twingl.Notes(client);
+// Optionally specifying a parent resource
+// var notes = new Twingl.Notes(client, { type: "contexts", id: 1 });
+
+notes.create({
+  body: "A really compelling text fragment from the inspiring article"
+},
+function(error, response) { console.log(response); });
+```
+
+**Attributes**
+
+Attributes that can be set on the to-be-created note
+
+Attribute    | Description
+-------------|------------
+body         | (string) The body of the note
+visibility   | (string) The visibility of the note (see below)
+
+**Visibility**
+
+Resources may be made visible depending on the user's preferences.
+There are several levels of visibility, described below.
+
+Level     | Description
+----------|------------
+public    | Accessible by anyone with the resource ID and returned in search results
+private   | Accessible by anyone with the resource ID, not returned in search results
+secret    | Only accessible to the resource owner
+
+##### Update
+
+Update an existing resource with a known ID
+
+> Attributes are the same as for `create`
+
+```javascript
+notes.update(8, {
+  body: "Something witty and reflective"
+},
+function(error, response) { console.log(response); });
+```
+
+##### Destroy
+
+Delete a resource from Twingl
+
+```javascript
+notes.destroy(1, function(error, response) {
+  console.log(response);
+});
+```
 
 # Contributing
 
