@@ -1,0 +1,20 @@
+[
+  {
+    "id":1,
+    "user_id":1,
+    "start_id":1,
+    "start_type":"highlights",
+    "end_id":2,
+    "end_type":"highlights",
+    "created":"2014-02-19T05:41:00Z"
+  },
+  {
+    "id":2,
+    "user_id":1,
+    "start_id":2,
+    "start_type":"highlights",
+    "end_id":3,
+    "end_type":"highlights",
+    "created":"2014-02-19T05:35:47Z"
+  }
+]
