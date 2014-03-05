@@ -23,8 +23,8 @@ describe("Twingl.Notes", function () {
       create: {
         endpoint: "/notes",
         payload: {
-          commentable_type: "contexts",
-          commentable_id: 1,
+          annotatable_type: "contexts",
+          annotatable_id: 1,
           body: "On \"minding your pitch\" from Paul Graham."
         },
         response: getJSONFixture("notes/create.json"),
@@ -40,7 +40,7 @@ describe("Twingl.Notes", function () {
       },
       update: {
         id: 1,
-        payload: { body: "An updated comment" },
+        payload: { body: "An updated note" },
         endpoint: "/notes/1",
         response: getJSONFixture("notes/update.1.json")
       },

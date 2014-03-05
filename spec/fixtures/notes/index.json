@@ -4,8 +4,8 @@
     "visibility":"private",
     "user_id":1,
     "origin":"web",
-    "commented_type":"highlights",
-    "commented_id":1,
+    "annotated_type":"highlights",
+    "annotated_id":1,
     "body":"On \"minding your pitch\" from Paul Graham.",
     "created":"2014-02-26T19:40:09Z",
     "updated":"2014-02-26T19:40:09Z"
@@ -15,8 +15,8 @@
     "visibility":"private",
     "user_id":1,
     "origin":"web",
-    "commented_type":"highlights",
-    "commented_id":1,
+    "annotated_type":"highlights",
+    "annotated_id":1,
     "body":"I feel inclined to agree with this; it seems to be that it makes the refactoring stage of a TDD cycle involve the mutation of the test suite (if one isn't careful)",
     "created":"2014-02-19T06:12:37Z",
     "updated":"2014-02-19T06:12:37Z"
