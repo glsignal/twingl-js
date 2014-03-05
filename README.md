@@ -39,9 +39,9 @@ These are documented as follows:
 
 Attribute | Description
 ----------|------------
-token     | the token used for authenticating against the API
-baseUrl   | The API base url. Defaults to "http://api.twin.gl" (note the lack of trailing slash)
-version   | String denoting the API version you want to access. Defaults to "v1"
+`token`   | the token used for authenticating against the API
+`baseUrl` | The API base url. Defaults to "http://api.twin.gl" (note the lack of trailing slash)
+`version` | String denoting the API version you want to access. Defaults to "v1"
 
 Once you have a client, you may then start instantiating resource objects to
 access information from the platform.
@@ -53,13 +53,13 @@ of the resource class.
 
 Resources usually have five main actions associated with them:
 
-Action  | Description
---------|------------
-index   | Get a list of resources
-create  | Create a new resource
-read    | Read a specific resource
-update  | Update an attribute on the resource
-destroy | Destroy the resource permanently.
+Action    | Description
+----------|------------
+`index`   | Get a list of resources
+`create`  | Create a new resource
+`read`    | Read a specific resource
+`update`  | Update an attribute on the resource
+`destroy` | Destroy the resource permanently.
 
 Resources can be nested under a parent resource, such as a highlight being made
 on a context. This can also be specified when creating an instance of the
@@ -108,12 +108,12 @@ By including the second parameter in the function call, we append these
 options to the API request. Some options worth mentioning here (but will
 otherwise be fully documented with the Twingl API) are listed below.
 
-Option | Description
--------|------------
-limit  | (int) Limit the number of objects returned by the server.
-offset | (int) Offset the returned list by `offset` items. Used in conjunction with `limit` for pagination
-sort   | (string) Sort the list by `attribute`, e.g. `created`
-order  | (string) Specify the sort order. Either `asc` or `desc`
+Option   | Description
+---------|------------
+`limit`  | (int) Limit the number of objects returned by the server.
+`offset` | (int) Offset the returned list by `offset` items. Used in conjunction with `limit` for pagination
+`sort`   | (string) Sort the list by `attribute`, e.g. `created`
+`order`  | (string) Specify the sort order. Either `asc` or `desc`
 
 Sort attribute | Description
 ---------------|------------
@@ -215,12 +215,12 @@ These error cases will be properly documented in the Twingl API documentation.
 When creating Highlights, you can supply several attributes to be set. These
 are as follows:
 
-Attribute   | Description
-------------|------------
-context     | (string) The URL of the page the highlight is associated with (see note below)
-quote       | (string) The quoted piece of text in the page
-ranges      | (string) Ranges that denote the start/end point of the highlighted text in the DOM
-visibility  | (string) The visibility of the note (see below)
+Attribute    | Description
+-------------|------------
+`context`    | (string) The URL of the page the highlight is associated with (see note below)
+`quote`      | (string) The quoted piece of text in the page
+`ranges`     | (string) Ranges that denote the start/end point of the highlighted text in the DOM
+`visibility` | (string) The visibility of the note (see below)
 
 **Visibility**
 
@@ -229,9 +229,9 @@ There are several levels of visibility, described below.
 
 Level     | Description
 ----------|------------
-public    | Accessible by anyone with the resource ID and returned in search results
-private   | Accessible by anyone with the resource ID, not returned in search results
-secret    | Only accessible to the resource owner
+`public`  | Accessible by anyone with the resource ID and returned in search results
+`private` | Accessible by anyone with the resource ID, not returned in search results
+`secret`  | Only accessible to the resource owner
 
 > A note on setting the context of a highlight; if the context is already known
 > to exist in Twingl, it is preferable to use the creation URL of the form
@@ -313,17 +313,17 @@ var notes = new Twingl.Notes(client, { type: "contexts", id: 1 });
 
 The `index` may be sorted and ordered according to the following attributes
 
-Option | Description
--------|------------
-limit  | (int) Limit the number of objects returned by the server.
-offset | (int) Offset the returned list by `offset` items. Used in conjunction with `limit` for pagination
-sort   | (string) Sort the list by `attribute`, e.g. `created`
-order  | (string) Specify the sort order. Either `asc` or `desc`
+Option   | Description
+---------|------------
+`limit`  | (int) Limit the number of objects returned by the server.
+`offset` | (int) Offset the returned list by `offset` items. Used in conjunction with `limit` for pagination
+`sort`   | (string) Sort the list by `attribute`, e.g. `created`
+`order`  | (string) Specify the sort order. Either `asc` or `desc`
 
 Sort attribute | Description
 ---------------|------------
-created        | Order the list by when the resource was created
-updated        | Order the list by when the resource was created
+`created`      | Order the list by when the resource was created
+`updated`      | Order the list by when the resource was created
 
 **Filtering**
 
@@ -381,8 +381,8 @@ Attributes that can be set on the to-be-created note
 
 Attribute    | Description
 -------------|------------
-body         | (string) The body of the note
-visibility   | (string) The visibility of the note (see below)
+`body`       | (string) The body of the note
+`visibility` | (string) The visibility of the note (see below)
 
 **Visibility**
 
@@ -391,9 +391,9 @@ There are several levels of visibility, described below.
 
 Level     | Description
 ----------|------------
-public    | Accessible by anyone with the resource ID and returned in search results
-private   | Accessible by anyone with the resource ID, not returned in search results
-secret    | Only accessible to the resource owner
+`public`  | Accessible by anyone with the resource ID and returned in search results
+`private` | Accessible by anyone with the resource ID, not returned in search results
+`secret`  | Only accessible to the resource owner
 
 ##### Update
 
